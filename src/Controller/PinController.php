@@ -70,6 +70,19 @@ class PinController extends AbstractController
     }
 
     /**
+     * @Route("/pin/{id<[0-9]+>}/delete", name="app_pin_delete", methods={"DELETE"})
+     * @param  Pin $pin
+     * @return Response
+     */
+    public function delete(Pin $pin): Response
+    {
+        $this->getDoctrine()->getManager()->remove($pin);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('app_home');
+    }
+
+    /**
      * @Route("/pin/{id<[0-9]+>}", name="app_pin_show", methods={"GET"})
      * @param  Pin $pin
      * @return Response
