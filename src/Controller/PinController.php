@@ -48,6 +48,18 @@ class PinController extends AbstractController
     }
 
     /**
+     * @Route("/pin/{id<[0-9]+>}", name="app_pin_show", methods={"GET"})
+     * @param  Pin $pin
+     * @return Response
+     */
+    public function show(Pin $pin): Response
+    {
+        return $this->render('pin/show.html.twig', [
+            'pin' => $pin,
+        ]);
+    }
+
+    /**
      * @Route("/pin/{id<[0-9]+>}/update", name="app_pin_update", methods={"GET", "PUT"})
      * @param  Pin $pin
      * @param  Request $request
@@ -82,17 +94,5 @@ class PinController extends AbstractController
         }
 
         return $this->redirectToRoute('app_home');
-    }
-
-    /**
-     * @Route("/pin/{id<[0-9]+>}", name="app_pin_show", methods={"GET"})
-     * @param  Pin $pin
-     * @return Response
-     */
-    public function show(Pin $pin): Response
-    {
-        return $this->render('pin/show.html.twig', [
-            'pin' => $pin,
-        ]);
     }
 }
