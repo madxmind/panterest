@@ -70,7 +70,7 @@ class PinController extends AbstractController
     }
 
     /**
-     * @Route("/pin/{id<[0-9]+>}/delete", name="app_pin_delete", methods={"DELETE"})
+     * @Route("/pin/{id<[0-9]+>}", name="app_pin_delete", methods={"DELETE"})
      * @param  Pin $pin
      * @return Response
      */
