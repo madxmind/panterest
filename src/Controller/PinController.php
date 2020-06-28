@@ -74,10 +74,12 @@ class PinController extends AbstractController
      * @param  Pin $pin
      * @return Response
      */
-    public function delete(Pin $pin): Response
+    public function delete(Pin $pin, Request $request): Response
     {
-        $this->getDoctrine()->getManager()->remove($pin);
-        $this->getDoctrine()->getManager()->flush();
+        if ($this->isCsrfTokenValid('pin_deletion_' . $pin->getId(), $request->request->get('csrf_token'))) {
+            $this->getDoctrine()->getManager()->remove($pin);
+            $this->getDoctrine()->getManager()->flush();
+        }
 
         return $this->redirectToRoute('app_home');
     }
