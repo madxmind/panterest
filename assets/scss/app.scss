@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 @import "shared/variable";
-@import "~bootstrap";
+@import "~bootstrap"; // Works because node/bootstrap/package.json use this in "sass" config
 html,
 body {
     font-family: $primary-font, sans-serif;
