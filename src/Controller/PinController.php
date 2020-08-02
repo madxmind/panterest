@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Pin;
 use App\Form\PinType;
 use App\Repository\PinRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,12 +31,13 @@ class PinController extends AbstractController
      * @param  Request $request
      * @return Response
      */
-    public function create(Request $request): Response
+    public function create(Request $request, UserRepository $userRepository): Response
     {
         $pin = new Pin;
         $form = $this->createForm(PinType::class, $pin)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pin->setUser($userRepository->findOneBy([]));
             $this->getDoctrine()->getManager()->persist($pin);
             $this->getDoctrine()->getManager()->flush();
 
@@ -66,11 +68,12 @@ class PinController extends AbstractController
      * @param  Request $request
      * @return Response
      */
-    public function update(Pin $pin, Request $request): Response
+    public function update(Pin $pin, Request $request, UserRepository $userRepository): Response
     {
         $form = $this->createForm(PinType::class, $pin, ['method' => 'PUT'])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pin->setUser($userRepository->findOneBy([]));
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Pin successfully updated!');

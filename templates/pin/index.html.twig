@@ -21,7 +21,7 @@
 								<a class="text-secondary text-decoration-none" href="{{ path('app_pin_show', { 'id': pin.id }) }}">{{ pin.title }}</a>
 							</h2>
 							<p class="pl-3 pb-3 text-muted">
-								<small>{{ 'Submited ' ~ '[OWNER FULLNAME]' }}</small>
+								<small>{{ 'Submited by ' ~ pin.user.fullName }}</small>
 							</p>
 						</article>
 					</div>
